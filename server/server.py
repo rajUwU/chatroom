@@ -1,5 +1,6 @@
 import socket
 import select 
+import sys 
 
 HEADER_LENGTH = 10
 
@@ -22,6 +23,17 @@ print(f'Listening for connections on IP = {IP} at PORT = {PORT}')
 
 
 def receive_message(client_socket):
+    """Receives messages from a client socket, parses the message header to 
+    determine the length of the message payload, and then receives the message 
+    payload from the client socket. 
+
+    Args:
+        client_socket (socket.socket): A socket object representing the client connection.
+
+    Returns:
+        dict or bool: A dictionary containing the message header and data if successful,
+                      or False if an error occurs.
+    """   
 
     try:
         message_header = client_socket.recv(HEADER_LENGTH)
@@ -74,6 +86,8 @@ while True:
 
             print(f"Recieved message from {user['data'].decode('utf-8')}: {message['data'].decode('utf-8')}")
 
+            if message['data'].decode('utf-8') == 'exit':
+                sys.exit()
             for client_socket in clients:
                 client_socket.send(
                     user['header'] + user['data'] + message['header'] + message['data']
