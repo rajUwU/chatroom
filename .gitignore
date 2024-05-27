@@ -1,2 +1,14 @@
 chatroom_venv/
 
+chatr/*.pyc
+chatr/__pycache__/
+
+chatr/instance/
+
+chatr/.pytest_cache/
+chatr/.coverage
+chatr/htmlcov/
+
+chatr/dist/
+chatr/build/
+chatr/*.egg-info/
